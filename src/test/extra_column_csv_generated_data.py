@@ -21,7 +21,7 @@ sales_persons = {
     123: [7, 8, 9]
 }
 
-file_location = "C:\\Users\\nikita\\Documents\\data_engineering\\spark_data"
+file_location = "D:\\DE_Project_1\\Dummy_data_to_s3"
 
 if not os.path.exists(file_location):
     os.makedirs(file_location)
@@ -32,7 +32,9 @@ input_date = datetime.strptime(input_date_str, "%Y-%m-%d")
 csv_file_path = os.path.join(file_location, f"sales_data_{input_date_str}.csv")
 with open(csv_file_path, "w", newline="") as csvfile:
     csvwriter = csv.writer(csvfile)
-    csvwriter.writerow(["customer_id", "store_id", "product_name", "sales_date", "sales_person_id", "price", "quantity", "total_cost", "payment_mode"])
+    #csvwriter.writerow(["customer_id", "store_id", "product_name", "sales_date", "sales_person_id", "price", "quantity", "total_cost", "payment_mode"])
+    csvwriter.writerow(
+        ["customer_id", "store_id", "product_name", "sales_date", "sales_person_id", "price", "quantity", "total_cost"])
 
     for _ in range(1000):
         customer_id = random.choice(customer_ids)
@@ -43,9 +45,10 @@ with open(csv_file_path, "w", newline="") as csvfile:
         quantity = random.randint(1, 10)
         price = product_data[product_name]
         total_cost = price * quantity
-        payment_mode = random.choice(["cash", "UPI"])
+        #payment_mode = random.choice(["cash", "UPI"])
 
         csvwriter.writerow(
-            [customer_id, store_id, product_name, sales_date.strftime("%Y-%m-%d"), sales_person_id, price, quantity, total_cost, payment_mode])
+            #[customer_id, store_id, product_name, sales_date.strftime("%Y-%m-%d"), sales_person_id, price, quantity, total_cost, payment_mode])
+            [customer_id, store_id, product_name, sales_date.strftime("%Y-%m-%d"), sales_person_id, price, quantity,total_cost])
 
     print("CSV file generated successfully:", csv_file_path)

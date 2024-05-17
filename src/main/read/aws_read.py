@@ -9,7 +9,10 @@ class S3Reader:
             response = s3_client.list_objects_v2(Bucket=bucket_name,Prefix=folder_path)
             if 'Contents' in response:
                 logger.info("Total files available in folder '%s' of bucket '%s': %s", folder_path, bucket_name, response)
-                files = [f"s3://{bucket_name}/{obj['Key']}" for obj in response['Contents'] if
+
+                # the below code is get only the files not the folder ... so the folds_name ends with '/' but the file name dose not ends with '/'.
+                files = [f"s3://{bucket_name}/{obj['Key']}"
+                         for obj in response['Contents'] if
                          not obj['Key'].endswith('/')]
                 return files
             else:
@@ -35,3 +38,4 @@ class S3Reader:
     #     except Exception as e:
     #         print(f"Error listing files: {e}")
     #         return []
+
